@@ -1,0 +1,2 @@
+#!/bin/sh -e
+curl -sSL https://barrel.dev/install.py | python3 - workhorse --reinstall

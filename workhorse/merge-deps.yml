@@ -1,0 +1,14 @@
+type: pulls
+search: "is:open is:pr label:dependencies org:YOUR_ORG archived:false"
+markdown: "- {{ pull.html_url }}\n  {{ pull.title }}"
+filter: 'pull.mergeable_state == "clean" and pull.mergeable'
+steps:
+  - skip:
+      description: Skip PR if already closed (likely by dependabot)
+      condition: 'pull.state == "closed"'
+  - wait:
+      description: Wait for PR to be mergeable again (dependabot often starts rebasing)
+      condition: 'pull.mergeable_state == "clean" and pull.mergeable'
+      retry: [5, 10, 60, 120, 60]
+  - merge:
+      merge_method: squash

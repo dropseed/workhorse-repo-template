@@ -1,0 +1,2 @@
+# This file is managed automatically by workhorse
+workhorse==0.6.7
